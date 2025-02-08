@@ -1,0 +1,115 @@
+{% extends 'link_checker/base.html' %}
+{% load static %}
+
+{% block title %}فحص الروابط{% endblock %}
+
+{% block content %}
+<div class="scanner-card shadow-lg p-5 mb-5 bg-white rounded">
+    <div class="voice-input-container mb-5">
+        <form method="POST" id="linkForm">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="url" id="urlInput" class="form-control form-control-lg"
+                    placeholder="أدخل الرابط هنا أو استخدم الميكروفون" aria-label="URL Input">
+                <button type="button" id="recordBtn" class="btn btn-primary btn-lg animated-button">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button type="submit" id="submitBtn" class="btn btn-success btn-lg ms-3 animated-button">
+                    فحص الرابط
+                </button>
+            </div>
+            <div class="invalid-feedback mt-2">
+                يرجى إدخال رابط صحيح
+            </div>
+        </form>
+        <div id="recordingStatus" class="text-muted mt-2"></div>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-warning text-center">
+        {{ error }}
+    </div>
+    <audio controls autoplay class="w-100">
+        <source src="{{ audio_url }}" type="audio/mpeg">
+        المتصفح لا يدعم تشغيل الصوت
+    </audio>
+    {% endif %}
+
+    {% if result %}
+    <div class="result-container mt-5">
+        <div class="result-card alert {% if result.safe %}alert-success{% else %}alert-danger{% endif %}">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-shield-alt fa-2x me-3"></i>
+                <div>
+                    <h4 class="alert-heading">
+                        {% if result.safe %}
+                            الرابط آمن
+                        {% else %}
+                            تحذير! الرابط خطير
+                        {% endif %}
+                    </h4>
+                    <p class="mb-0">
+                        {% if result.safe %}
+                            هذا الموقع امن
+                        {% else %}
+                            احترس الموقع ضار
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+                {% if result.details %}
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-box bg-light p-4 rounded-lg shadow-sm animated-button">
+                            <h6>المصادر الآمنة</h6>
+                            <span class="display-4 text-success">
+                                {{ result.details.harmless|default:"0" }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-box bg-light p-4 rounded-lg shadow-sm animated-button">
+                            <h6>المصادر الضارة</h6>
+                            <span class="display-4 text-danger">
+                                {{ result.details.malicious|default:"0" }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-box bg-light p-4 rounded-lg shadow-sm animated-button">
+                            <h6>المشبوهة</h6>
+                            <span class="display-4 text-warning">
+                                {{ result.details.suspicious|default:"0" }}
+                            </span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12 text-center">
+                        <div class="alert alert-secondary">
+                            <p class="text-muted">⚠️ لم يتم العثور على بيانات تحليل لهذا الرابط.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            
+            
+
+            {% if audio_url %}
+            <div class="mt-5">
+                <audio controls autoplay class="w-100">
+                    <source src="{{ audio_url }}" type="audio/mpeg">
+                    المتصفح لا يدعم تشغيل الصوت
+                </audio>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Now, if VirusTotal fails to return a result, a warning message is displayed on the frontend. -->
+<!-- An audio message is generated and played when the error occurs, informing the user to try again later. -->
+<!-- Both text and audio alerts are handled properly in index.html. -->
+
+{% endblock %}

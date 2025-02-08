@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Breach Report</h1>
+
+{% if report.email_breaches %}
+<h3>Email Breaches:</h3>
+<ul>
+    {% for breach in report.email_breaches %}
+    <li>{{ breach }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if report.password_breach_count %}
+<h3>Password Appeared in {{ report.password_breach_count }} breaches</h3>
+{% endif %}
+
+{% if report.phone_breaches %}
+<h3>Phone Breaches:</h3>
+<ul>
+    {% for breach in report.phone_breaches %}
+    <li>{{ breach.source }} ({{ breach.details }})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
