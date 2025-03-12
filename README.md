@@ -8,29 +8,26 @@
 <h3 align="center">WebGuardian</h3>
 
   <p align="center">
-    Enhancing online safety and accessibility
+    Enhancing online safety
   </p>
 </div>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
-WebGuardian is a powerful web application dedicated to enhancing online safety and accessibility. It empowers users—especially those who are blind or visually impaired—by transforming spoken content into actionable insights. Through advanced audio processing and immediate, audible feedback on web address safety, WebGuardian helps users navigate the internet securely and confidently.
+WebGuardian is a powerful web application dedicated to enhancing online safety. By leveraging the VirusTotal API, it provides real-time security evaluations of web addresses, empowering users to navigate the internet securely and confidently.
 
 ## Features
+- **URL Safety Check: Evaluates URLs for potential security risks using the VirusTotal API.**
 
-- **Audio Processing:** Converts uploaded audio files into text using state-of-the-art speech-to-text technology. This hands-free approach is specifically designed to assist blind and visually impaired users in interacting with online content.
-- **URL Safety Check:** Leverages the VirusTotal API to evaluate URLs for potential security risks, ensuring that users are informed about the trustworthiness of web addresses.
-- **Text-to-Speech Feedback:** Provides clear, audible feedback on the URL’s safety status via gTTS, delivering an accessible user experience through sound.
-- **User-Friendly Web Interface:** Offers an intuitive interface for both audio uploads and direct URL entry, ensuring effortless navigation and usage.
+- **Detailed Threat Analysis: Displays malicious, harmless, and suspicious source counts.**
+
+- **User-Friendly Interface: Intuitive design for seamless URL validation.**
+
 
 ## Built With
 
 * [![Python][Python]][Python-url]
 * [![Django][Django]][Django-url]
 * ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-* ![SpeechRecognition](https://img.shields.io/badge/SpeechRecognition-blue?style=for-the-badge)
-* ![pydub](https://img.shields.io/badge/pydub-yellow?style=for-the-badge)
-* ![gTTS](https://img.shields.io/badge/gTTS-red?style=for-the-badge)
 * ![VirusTotal API](https://img.shields.io/badge/VirusTotal-API-green?style=for-the-badge)
 
 <!-- GETTING STARTED -->
@@ -74,24 +71,21 @@ WebGuardian is a powerful web application dedicated to enhancing online safety a
 
 ### Via the Web Interface:
 1. Open your browser and navigate to `http://127.0.0.1:8000/`.
-2. You have two main options:
-    - **Upload an Audio File:**
-        - Select an audio file and upload it. WebGuardian will:
-            - Transcribe the spoken content into text.
-            - Extract any URL mentioned in the audio.
-            - Analyze the URL's safety using the VirusTotal API.
-            - Provide clear, audible feedback (e.g., *"هذا الموقع امن"* or *"احترس الموقع ضار"*) via gTTS.
-    - **Direct URL Entry:**
-        - Enter a URL directly into the provided field.
-        - WebGuardian will immediately check its safety and display the results on-screen along with audible feedback.
+2. Enter a URL in the input field.
+
+3. View the safety analysis:
+
+    - Safe: Green alert with harmless source count.
+
+    - Dangerous: Red alert with malicious/suspicious counts.
+      
 
 ### Example Scenario:
-Imagine you upload an audio clip in which someone says, *"Please check out https://www.google.com."* WebGuardian will:
+Enter *https://www.google.com* to see:
 
-1. Transcribe the audio into text.
-2. Extract and clean the URL from the text.
-3. Submit the URL to the VirusTotal API for safety analysis.
-4. Return a detailed safety report and generate an audible message informing you whether the site is safe or if caution is advised.
+Safety status (Safe/Dangerous)
+
+Breakdown of harmless, malicious, and suspicious sources
 
 <!-- CONTACT -->
 ## Contact
