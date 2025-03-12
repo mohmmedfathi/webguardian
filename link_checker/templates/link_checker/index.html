@@ -4,16 +4,14 @@
 {% block title %}فحص الروابط{% endblock %}
 
 {% block content %}
+
 <div class="scanner-card shadow-lg p-5 mb-5 bg-white rounded">
     <div class="voice-input-container mb-5">
         <form method="POST" id="linkForm">
             {% csrf_token %}
             <div class="input-group">
                 <input type="text" name="url" id="urlInput" class="form-control form-control-lg"
-                    placeholder="أدخل الرابط هنا أو استخدم الميكروفون" aria-label="URL Input">
-                <button type="button" id="recordBtn" class="btn btn-primary btn-lg animated-button">
-                    <i class="fas fa-microphone"></i>
-                </button>
+                    placeholder="أدخل الرابط هنا" aria-label="URL Input">
                 <button type="submit" id="submitBtn" class="btn btn-success btn-lg ms-3 animated-button">
                     فحص الرابط
                 </button>
@@ -22,17 +20,12 @@
                 يرجى إدخال رابط صحيح
             </div>
         </form>
-        <div id="recordingStatus" class="text-muted mt-2"></div>
     </div>
 
     {% if error %}
     <div class="alert alert-warning text-center">
         {{ error }}
     </div>
-    <audio controls autoplay class="w-100">
-        <source src="{{ audio_url }}" type="audio/mpeg">
-        المتصفح لا يدعم تشغيل الصوت
-    </audio>
     {% endif %}
 
     {% if result %}
@@ -92,24 +85,8 @@
                     </div>
                 {% endif %}
             </div>
-            
-            
-
-            {% if audio_url %}
-            <div class="mt-5">
-                <audio controls autoplay class="w-100">
-                    <source src="{{ audio_url }}" type="audio/mpeg">
-                    المتصفح لا يدعم تشغيل الصوت
-                </audio>
-            </div>
-            {% endif %}
         </div>
     </div>
     {% endif %}
 </div>
-
-<!-- Now, if VirusTotal fails to return a result, a warning message is displayed on the frontend. -->
-<!-- An audio message is generated and played when the error occurs, informing the user to try again later. -->
-<!-- Both text and audio alerts are handled properly in index.html. -->
-
 {% endblock %}
